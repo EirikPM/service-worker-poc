@@ -1,7 +1,8 @@
 import React from 'react'
-import {useSelector, shallowEqual, useDispatch} from 'react-redux'
-import {RootState} from "../../app/store";
-import {observasjonEdited} from "./todoSlice";
+import { useSelector, shallowEqual } from 'react-redux'
+import { observasjonEdited } from "./todoSlice";
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+
 
 interface observasjon {
     id: number,
@@ -10,8 +11,8 @@ interface observasjon {
 }
 
 const ObservasjonList = () => {
-    const dispatch = useDispatch()
-    const observasjoner = useSelector((state: RootState) => state.kvittering.observasjoner)
+    const observasjoner = useAppSelector(state => state.kvittering.observasjoner)
+    const dispatch = useAppDispatch()
 
     return (
         <div>
