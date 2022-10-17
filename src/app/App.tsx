@@ -11,6 +11,7 @@ function App() {
                     <h2>Observasjoner</h2>
                     <div className="todoapp">
                         <Header />
+                        <ObservasjonList />
                     </div>
                 </section>
             </main>

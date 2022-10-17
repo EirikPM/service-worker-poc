@@ -1,9 +1,8 @@
 import React from 'react'
-import { useSelector, shallowEqual } from 'react-redux'
-import ObservasjonItem from './ObservasjonItem'
+import {useSelector, shallowEqual, useDispatch} from 'react-redux'
+import {RootState} from "../../app/store";
+import {observasjonEdited} from "./todoSlice";
 
-//const selectTodoIds = (state) => state.todos.map((todo) => todo.id)
-//
 interface observasjon {
     id: number,
     tittel: string,
@@ -11,17 +10,19 @@ interface observasjon {
 }
 
 const ObservasjonList = () => {
-    const observasjoner: observasjon[] = []
+    const dispatch = useDispatch()
+    const observasjoner = useSelector((state: RootState) => state.kvittering.observasjoner)
 
-    const renderedObservasjonItems = observasjoner.map((observasjon) => {
-        return <ObservasjonItem key={observasjon.id} observasjon={observasjon} />
-    })
-
-    //    const renderedListItems = todoIds.map((todoId) => {
-    //        return <ObservasjonItem key={todoId} id={todoId} />
-    //    })
-    //
-    return <ul className="observasjon-list">{renderedObservasjonItems}</ul>
+    return (
+        <div>
+            {observasjoner.map((obs, key) => (
+                <div key={key}>
+                    <label htmlFor={obs.id + ''}>Obs: {obs.id}</label>
+                    <input id={obs.id + ''} value={obs.text} onChange={(e) => dispatch(observasjonEdited({ ...obs, text: e.target.value }))} />
+                </div>
+            ))}
+        </div>
+    )
 }
 
 export default ObservasjonList

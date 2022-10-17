@@ -1,36 +1,39 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 
-interface ObservasjonState {
+interface IKvittering {
+    observasjoner: IObservasjon[]
+}
+
+interface IObservasjon {
     id: number,
-    tittel: string,
-    beskrivelse: string
+    text: string
 }
 
 
-const initialState: Observasjon = {}
+const initialState: IKvittering = { observasjoner: [
+        { id: 1, text: '' },
+        { id: 2, text: '' },
+        { id: 3, text: '' },
+    ] }
 
-//const todosSlice = createSlice({
-//    name: 'todos',
-//    initialState,
-//    reducers: {
-//        todoAdded(state, action: PayloadAction<string>) {
-//            state.entities.push(action.payload)
-//        },
-//        todoToggled(state, action) {
-//            const todo = state.entities.find(todo => todo.id === action.payload)
-//            todo.completed = !todo.completed
-//        },
-//        todosLoading(state, action) {
-//            return {
-//                ...state,
-//                status: 'loading'
-//            }
-//        }
-//    }
-//})
+const todosSlice = createSlice({
+   name: 'todos',
+   initialState,
+   reducers: {
+       observasjonAdded(state, action: PayloadAction<IObservasjon>) {
+           state.observasjoner = [ ...state.observasjoner, action.payload ]
+       },
+       observasjonEdited(state, action: PayloadAction<IObservasjon>) {
+           const obs = state.observasjoner.find(o => o.id == action.payload.id)
+           if (obs) {
+               obs.text = action.payload.text
+           }
+       }
+   }
+})
 
 
-//export const { todoAdded, todoToggled, todosLoading } = todosSlice.actions
+export const { observasjonAdded, observasjonEdited } = todosSlice.actions
 
-//export default todosSlice.reducer 
+export default todosSlice.reducer

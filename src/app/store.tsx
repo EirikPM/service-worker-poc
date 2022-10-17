@@ -1,8 +1,9 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { default as kvittering } from "../features/observasjoner/todoSlice";
 
 
 const reducer = {
-
+    kvittering
 }
 
 
