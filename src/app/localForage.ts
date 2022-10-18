@@ -1,6 +1,6 @@
 import localforage from 'localforage';
 import { RootState } from './store';
-
+import { IObservasjon } from '../features/observasjoner/todoSlice';
 
 export const loadStates = () => {
     try {
@@ -19,11 +19,16 @@ export const loadStates = () => {
 
 export const loadState = async () => {
     try {
-        const observasjoner = await localforage.getItem('observasjoner')
+        const observasjoner = await localforage.getItem<IObservasjon[]>('observasjoner')
         console.log(observasjoner)
         if (observasjoner === null) {
             return undefined
         }
+        return {
+            kvittering:
+                { observasjoner }
+        }
+
     } catch (error) {
         console.log(error)
         return undefined
